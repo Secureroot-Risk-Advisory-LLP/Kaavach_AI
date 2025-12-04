@@ -4,10 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
 import http from "http"; 
 import { initSocket } from "./utils/socket.js";
-
 
 // Import routes
 import authRoutes from './routes/auth.routes.js';
@@ -68,13 +66,24 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Database connection
+// ---------------------
+// DATABASE CONNECTION
+// ---------------------
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/kaavach-ai');
-    console.log('✅ MongoDB Connected');
+    if (!process.env.MONGO_URI) {
+      console.error("❌ MONGO_URI is missing in Render environment variables!");
+      process.exit(1);
+    }
+
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    console.log("✅ MongoDB Connected");
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
+    console.error("❌ MongoDB connection error:", error);
     process.exit(1);
   }
 };
@@ -90,6 +99,7 @@ const server = http.createServer(app);
 initSocket(server);
 
 const PORT = process.env.PORT || 5000;
+
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
