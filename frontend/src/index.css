@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+    --muted: 217 33% 12%;
+    --muted-foreground: 220 14% 75%;
+    --popover: 222 47% 4%;
+    --popover-foreground: 210 40% 96%;
+    --card: 222 47% 5%;
+    --card-foreground: 210 40% 96%;
+    --border: 216 34% 18%;
+    --input: 216 34% 18%;
+    --primary: 182 100% 50%;
+    --primary-foreground: 222 47% 6%;
+    --secondary: 267 83% 58%;
+    --secondary-foreground: 210 40% 96%;
+    --accent: 200 98% 60%;
+    --accent-foreground: 222 47% 6%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 96%;
+    --ring: 182 100% 50%;
+    --radius-xl: 1.75rem;
+    --radius: 1.1rem;
+    --glass-primary: 222 67% 12%;
+    --glass-muted: 214 32% 18%;
+    --glass-border: 185 100% 50%;
+    --cyber-primary: 182 80% 60%;
+    --cyber-secondary: 265 74% 62%;
+    --cyber-accent: 200 98% 60%;
+    --cyber-danger: 0 84% 60%;
+    --cyber-success: 150 83% 45%;
+  }
+
+  .light {
+    --background: 210 40% 96%;
+    --foreground: 222 47% 6%;
+    --muted: 214 32% 91%;
+    --muted-foreground: 222 47% 35%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 6%;
+    --border: 214 32% 86%;
+    --input: 214 32% 86%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 6%;
+    --primary: 222 73% 47%;
+    --primary-foreground: 210 40% 96%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 6%;
+    --accent: 222 73% 47%;
+    --accent-foreground: 210 40% 96%;
+    --destructive: 0 84% 53%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 222 73% 47%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+    background-image: radial-gradient(ellipse at top, rgba(59,130,246,0.25), transparent 45%),
+      radial-gradient(ellipse at right, rgba(236,72,153,0.18), transparent 45%),
+      radial-gradient(ellipse at bottom, rgba(16,185,129,0.12), transparent 60%);
+    background-color: hsl(var(--background));
+    font-synthesis: none;
+  }
+
+  ::selection {
+    background: hsla(var(--cyber-primary) / 0.35);
+    color: hsl(var(--foreground));
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-xl border border-glass-border/30 bg-glass-muted/60 backdrop-blur-2xl shadow-neon-card;
+  }
+
+  .cyber-grid {
+    background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.055) 1px, transparent 0);
+    background-size: 40px 40px;
+    background-repeat: repeat;
+  }
+}
+
