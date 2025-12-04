@@ -1,6 +1,5 @@
 // FRONTEND — socket.js
-// Works with Vite. No "process" usage.
-// Fully safe for browser environment.
+// Production-safe version (No localhost fallback)
 
 import { io } from "socket.io-client";
 
@@ -10,14 +9,17 @@ let socket = null;
 export function initSocket(userId) {
   if (socket) return socket; // avoid duplicate connections
 
-  const backendURL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
+  const backendURL = import.meta.env.VITE_SOCKET_URL;
+
+  if (!backendURL) {
+    console.error("❌ VITE_SOCKET_URL missing! Socket cannot connect.");
+    return null;
+  }
 
   socket = io(backendURL, {
     transports: ["websocket"],
     withCredentials: true,
-    query: {
-      userId, // sent to backend socket.js
-    },
+    query: { userId }
   });
 
   socket.on("connect", () => {
